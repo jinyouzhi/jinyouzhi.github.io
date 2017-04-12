@@ -155,6 +155,82 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-PIL-Image-to-QImage" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/12/PIL-Image-to-QImage/">使用ImageQt将Image转换成 QImage</a>
+    </h1>
+  
+
+        
+        <a href="/2017/04/12/PIL-Image-to-QImage/" class="archive-article-date">
+  	<time datetime="2017-04-12T11:42:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>昨天做数字图像处理实验平滑处理部分，我选择的是Python编写，GUI使用PyQt5，使用了图像库PIL读取文件，然后转为numpy数组进行处理，再由PyQt5的QImage控件显示。<br>这其中出现一个问题，numpy数组的图像数据再转为图像显示的实现方式，没有特别成熟的方案。在前几次实验中使用QPixmap、QPainter绘制的方式，还有metaplot的plot绘制的方式再输出为文件到缓冲区，再用QImage读取文件的方式从缓冲区取出显示。<br>昨天研究Image的时候发现Image有一个ImageQt和ImageTK类是用于向这两种GUI的图形控件输出的方法。但Google遍中文英文包括官方文档都没有关于的这个方法的具体使用范例，最终在一家日文网站发现了办法，思路上大体还是输出到缓冲区再读回的办法，但已经比之前的方法高雅多了。<br>改进日文网站后我的写法：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">image2qimage</span><span class="params">(self, image)</span>:</span></div><div class="line">    img_buffer = io.BytesIO()</div><div class="line">    image.save(img_buffer, <span class="string">"BMP"</span>)</div><div class="line">    qimage = QImage()</div><div class="line">    qimage.loadFromData(img_buffer.getvalue(), <span class="string">"BMP"</span>)</div><div class="line">    <span class="keyword">return</span> qimage</div></pre></td></tr></table></figure></p>
+<p>顺便知道了Qiita是日本一家程序员技术分享网站</p>
+<p>参考<br><a href="http://qiita.com/pashango2/items/145d858eff3c505c100a" target="_blank" rel="external">PIL/Pillow チートシート - Qiita</a><br><a href="http://qiita.com/pashango2/items/145d858eff3c505c100a" target="_blank" rel="external">PIL.Image と PyQt4.QtGui.QImageの相互変換</a><br><a href="http://pillow-cn.readthedocs.io/zh_CN/latest/reference/ImageQt.html" target="_blank" rel="external">Pillow ImageQt Module</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">PyQt</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Image</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">数字图像处理</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ImageQt</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/04/12/PIL-Image-to-QImage/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-Tensor-Decomposition-Toolbox" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -456,6 +532,18 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Tensor(张量)</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">MATLAB</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ACM</a>
               </li>
              
@@ -468,19 +556,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Tensor(张量) Python MATLAB</a>
+                <a href="javascript:void(0)" class="js-tag color5">PyQt</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Tensor(张量)</a>
+                <a href="javascript:void(0)" class="js-tag color1">Image</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color2">数字图像处理</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">MATLAB</a>
+                <a href="javascript:void(0)" class="js-tag color3">ImageQt</a>
               </li>
             
             <div class="clearfix"></div>

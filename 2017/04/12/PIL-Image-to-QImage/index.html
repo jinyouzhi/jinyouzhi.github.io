@@ -6,14 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://jinyouzhi.github.io">
-  <title>Tag: Tensor(张量) | 无关字节 Byte-Free</title>
+  <title>使用ImageQt将Image转换成 QImage | 无关字节 Byte-Free</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="无关字节 Byte-Free">
-<meta property="og:url" content="http://jinyouzhi.github.io/tags/Tensor-张量/index.html">
+  <meta name="description" content="昨天做数字图像处理实验平滑处理部分，我选择的是Python编写，GUI使用PyQt5，使用了图像库PIL读取文件，然后转为numpy数组进行处理，再由PyQt5的QImage控件显示。这其中出现一个问题，numpy数组的图像数据再转为图像显示的实现方式，没有特别成熟的方案。在前几次实验中使用QPixmap、QPainter绘制的方式，还有metaplot的plot绘制的方式再输出为文件到缓冲区，再">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用ImageQt将Image转换成 QImage">
+<meta property="og:url" content="http://jinyouzhi.github.io/2017/04/12/PIL-Image-to-QImage/index.html">
 <meta property="og:site_name" content="无关字节 Byte-Free">
+<meta property="og:description" content="昨天做数字图像处理实验平滑处理部分，我选择的是Python编写，GUI使用PyQt5，使用了图像库PIL读取文件，然后转为numpy数组进行处理，再由PyQt5的QImage控件显示。这其中出现一个问题，numpy数组的图像数据再转为图像显示的实现方式，没有特别成熟的方案。在前几次实验中使用QPixmap、QPainter绘制的方式，还有metaplot的plot绘制的方式再输出为文件到缓冲区，再">
+<meta property="og:updated_time" content="2017-04-12T12:21:09.057Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="无关字节 Byte-Free">
+<meta name="twitter:title" content="使用ImageQt将Image转换成 QImage">
+<meta name="twitter:description" content="昨天做数字图像处理实验平滑处理部分，我选择的是Python编写，GUI使用PyQt5，使用了图像库PIL读取文件，然后转为numpy数组进行处理，再由PyQt5的QImage控件显示。这其中出现一个问题，numpy数组的图像数据再转为图像显示的实现方式，没有特别成熟的方案。在前几次实验中使用QPixmap、QPainter绘制的方式，还有metaplot的plot绘制的方式再输出为文件到缓冲区，再">
   
     <link rel="alternative" href="/atom.xml" title="无关字节 Byte-Free" type="application/atom+xml">
   
@@ -153,68 +157,163 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-PIL-Image-to-QImage" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/04/11/Tensor-Decomposition-Toolbox/" class="archive-article-date">
-  	<time datetime="2017-04-11T09:00:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-11</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/11/Tensor-Decomposition-Toolbox/">Tensor Decomposition（张量分解）工具箱</a>
+    <h1 class="article-title" itemprop="name">
+      使用ImageQt将Image转换成 QImage
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/04/12/PIL-Image-to-QImage/" class="archive-article-date">
+  	<time datetime="2017-04-12T11:42:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>昨天做数字图像处理实验平滑处理部分，我选择的是Python编写，GUI使用PyQt5，使用了图像库PIL读取文件，然后转为numpy数组进行处理，再由PyQt5的QImage控件显示。<br>这其中出现一个问题，numpy数组的图像数据再转为图像显示的实现方式，没有特别成熟的方案。在前几次实验中使用QPixmap、QPainter绘制的方式，还有metaplot的plot绘制的方式再输出为文件到缓冲区，再用QImage读取文件的方式从缓冲区取出显示。<br>昨天研究Image的时候发现Image有一个ImageQt和ImageTK类是用于向这两种GUI的图形控件输出的方法。但Google遍中文英文包括官方文档都没有关于的这个方法的具体使用范例，最终在一家日文网站发现了办法，思路上大体还是输出到缓冲区再读回的办法，但已经比之前的方法高雅多了。<br>改进日文网站后我的写法：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">image2qimage</span><span class="params">(self, image)</span>:</span></div><div class="line">    img_buffer = io.BytesIO()</div><div class="line">    image.save(img_buffer, <span class="string">"BMP"</span>)</div><div class="line">    qimage = QImage()</div><div class="line">    qimage.loadFromData(img_buffer.getvalue(), <span class="string">"BMP"</span>)</div><div class="line">    <span class="keyword">return</span> qimage</div></pre></td></tr></table></figure></p>
+<p>顺便知道了Qiita是日本一家程序员技术分享网站</p>
+<p>参考<br><a href="http://qiita.com/pashango2/items/145d858eff3c505c100a" target="_blank" rel="external">PIL/Pillow チートシート - Qiita</a><br><a href="http://qiita.com/pashango2/items/145d858eff3c505c100a" target="_blank" rel="external">PIL.Image と PyQt4.QtGui.QImageの相互変換</a><br><a href="http://pillow-cn.readthedocs.io/zh_CN/latest/reference/ImageQt.html" target="_blank" rel="external">Pillow ImageQt Module</a></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Tensor(张量)</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">PyQt</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Image</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">MATLAB</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">数字图像处理</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ImageQt</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://jinyouzhi.github.io/2017/04/12/PIL-Image-to-QImage/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2017/04/11/Tensor-Decomposition-Toolbox/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Tensor Decomposition（张量分解）工具箱</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-    
+
 
 
           </div>
@@ -237,9 +336,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
